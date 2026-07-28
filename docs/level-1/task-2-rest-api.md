@@ -40,11 +40,32 @@ To test it:
 4. Run each request in order (Create → Get → Update → Delete)
 
 ### Manual Test Screenshots
+
+**Create income**
 ![Create income](../../screenshots/level-1/create-income.png)
+
+**Get all income**
 ![Get all income](../../screenshots/level-1/get-income.png)
+
+**Update income**
 ![Update income](../../screenshots/level-1/update-income.png)
+
+**Delete income**
 ![Delete income](../../screenshots/level-1/delete-income.png)
+
+**Create expense**
 ![Create expense](../../screenshots/level-1/create-expense.png)
+
+**Get all expenses**
+![Get all expenses](../../screenshots/level-1/get-expenses.png)
+
+**Update expense**
+![Update expense](../../screenshots/level-1/update-expense.png)
+
+**Delete expense**
+![Delete expense](../../screenshots/level-1/delete-expense.png)
+
+**Error handling - invalid ID**
 ![Error handling - invalid ID](../../screenshots/level-1/error-invalid-id.png)
 
 ## Error Handling
