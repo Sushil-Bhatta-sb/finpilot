@@ -56,15 +56,6 @@ To test it:
 **Create expense**
 ![Create expense](../../screenshots/level-1/create-expense.png)
 
-**Get all expenses**
-![Get all expenses](../../screenshots/level-1/get-expenses.png)
-
-**Update expense**
-![Update expense](../../screenshots/level-1/update-expense.png)
-
-**Delete expense**
-![Delete expense](../../screenshots/level-1/delete-expense.png)
-
 **Error handling - invalid ID**
 ![Error handling - invalid ID](../../screenshots/level-1/error-invalid-id.png)
 
