@@ -52,3 +52,13 @@ exports.getMe = async (req, res, next) => {
     next(err);
   }
 };
+
+// Admin only: list all users (role-based access control demo)
+exports.getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find().select('-password').sort({ createdAt: -1 });
+    res.json({ count: users.length, users });
+  } catch (err) {
+    next(err);
+  }
+};

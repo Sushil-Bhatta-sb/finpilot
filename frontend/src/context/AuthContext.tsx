@@ -40,10 +40,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (name: string, email: string, password: string) => {
-    const res = await authApi.register(name, email, password);
-    localStorage.setItem(TOKEN_KEY, res.data.token);
-    setToken(res.data.token);
-    setUser(res.data.user);
+    // Create the account only; the user then logs in from the Login page.
+    await authApi.register(name, email, password);
   };
 
   const logout = () => {
