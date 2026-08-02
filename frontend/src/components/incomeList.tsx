@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
+import { TrendingUp } from 'lucide-react';
 import type { Income } from '../types';
 import { getIncomes, createIncome, deleteIncome } from '../api/income';
 import Card from './ui/Card';
 import Button from './ui/Button';
 import Input from './ui/Input';
-import Spinner from './ui/Spinner';
+import EmptyState from './ui/EmptyState';
+import { SkeletonList } from './ui/Skeleton';
+import { useToast } from '../context/ToastContext';
 
 interface Props {
   onTotalChange?: (total: number) => void;
 }
 
 export default function IncomeList({ onTotalChange }: Props) {
+  const { showToast } = useToast();
   const [incomes, setIncomes] = useState<Income[]>([]);
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
 
   const load = async () => {
     setLoading(true);
-    setError('');
     try {
       const res = await getIncomes();
       setIncomes(res.data);
       onTotalChange?.(res.data.reduce((sum, i) => sum + i.amount, 0));
     } catch {
-      setError('Failed to load income.');
+      showToast('Failed to load income.', 'error');
     } finally {
       setLoading(false);
     }
@@ -41,14 +43,14 @@ export default function IncomeList({ onTotalChange }: Props) {
     e.preventDefault();
     if (!title.trim() || !amount) return;
     setSaving(true);
-    setError('');
     try {
       await createIncome({ title, amount: Number(amount) });
+      showToast('Income added', 'success');
       setTitle('');
       setAmount('');
       await load();
     } catch {
-      setError('Failed to add income.');
+      showToast('Failed to add income.', 'error');
     } finally {
       setSaving(false);
     }
@@ -57,9 +59,10 @@ export default function IncomeList({ onTotalChange }: Props) {
   const handleDelete = async (id: string) => {
     try {
       await deleteIncome(id);
+      showToast('Income deleted', 'success');
       await load();
     } catch {
-      setError('Failed to delete income.');
+      showToast('Failed to delete income.', 'error');
     }
   };
 
@@ -88,9 +91,13 @@ export default function IncomeList({ onTotalChange }: Props) {
       </form>
 
       {loading ? (
-        <Spinner label="Loading income…" />
+        <SkeletonList rows={4} />
       ) : incomes.length === 0 ? (
-        <p className="empty-state">No income recorded yet.</p>
+        <EmptyState
+          icon={<TrendingUp size={28} />}
+          title="No income recorded yet"
+          message="Add your first income entry using the form above."
+        />
       ) : (
         <ul className="txn-list">
           {incomes.map((i) => (
@@ -110,7 +117,6 @@ export default function IncomeList({ onTotalChange }: Props) {
         </ul>
       )}
 
-      {error && <p className="error-text">{error}</p>}
     </Card>
   );
 }

@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
+import { TrendingDown } from 'lucide-react';
 import type { Expense } from '../types';
 import { getExpenses, createExpense, deleteExpense } from '../api/expense';
 import Card from './ui/Card';
 import Button from './ui/Button';
 import Input from './ui/Input';
-import Spinner from './ui/Spinner';
+import EmptyState from './ui/EmptyState';
+import { SkeletonList } from './ui/Skeleton';
+import { useToast } from '../context/ToastContext';
 
 interface Props {
   onTotalChange?: (total: number) => void;
 }
 
 export default function ExpenseList({ onTotalChange }: Props) {
+  const { showToast } = useToast();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
 
   const load = async () => {
     setLoading(true);
-    setError('');
     try {
       const res = await getExpenses();
       setExpenses(res.data);
       onTotalChange?.(res.data.reduce((sum, ex) => sum + ex.amount, 0));
     } catch {
-      setError('Failed to load expenses.');
+      showToast('Failed to load expenses.', 'error');
     } finally {
       setLoading(false);
     }
@@ -41,14 +43,14 @@ export default function ExpenseList({ onTotalChange }: Props) {
     e.preventDefault();
     if (!title.trim() || !amount) return;
     setSaving(true);
-    setError('');
     try {
       await createExpense({ title, amount: Number(amount) });
+      showToast('Expense added', 'success');
       setTitle('');
       setAmount('');
       await load();
     } catch {
-      setError('Failed to add expense.');
+      showToast('Failed to add expense.', 'error');
     } finally {
       setSaving(false);
     }
@@ -57,9 +59,10 @@ export default function ExpenseList({ onTotalChange }: Props) {
   const handleDelete = async (id: string) => {
     try {
       await deleteExpense(id);
+      showToast('Expense deleted', 'success');
       await load();
     } catch {
-      setError('Failed to delete expense.');
+      showToast('Failed to delete expense.', 'error');
     }
   };
 
@@ -88,9 +91,13 @@ export default function ExpenseList({ onTotalChange }: Props) {
       </form>
 
       {loading ? (
-        <Spinner label="Loading expenses…" />
+        <SkeletonList rows={4} />
       ) : expenses.length === 0 ? (
-        <p className="empty-state">No expenses recorded yet.</p>
+        <EmptyState
+          icon={<TrendingDown size={28} />}
+          title="No expenses recorded yet"
+          message="Add your first expense using the form above."
+        />
       ) : (
         <ul className="txn-list">
           {expenses.map((ex) => (
@@ -110,7 +117,6 @@ export default function ExpenseList({ onTotalChange }: Props) {
         </ul>
       )}
 
-      {error && <p className="error-text">{error}</p>}
     </Card>
   );
 }

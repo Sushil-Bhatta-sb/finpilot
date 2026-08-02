@@ -14,10 +14,27 @@
   --expense: #dc2626;
   --expense-soft: rgba(220, 38, 38, 0.12);
   --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.12);
+  /* Semantic aliases used by the new UI components */
+  --brand: #4f46e5;
+  --success: #16a34a;
+  --success-soft: rgba(22, 163, 74, 0.12);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+  --neutral: #6b7280;
+  --neutral-soft: rgba(107, 114, 128, 0.14);
   --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
   --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
   --radius: 14px;
   --radius-sm: 10px;
+
+  /* Navigation aliases (map onto existing tokens; auto-adapt to dark theme) */
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--surface);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-border: var(--border);
 
   font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial,
     sans-serif;
@@ -46,6 +63,14 @@
     --expense: #f87171;
     --expense-soft: rgba(248, 113, 113, 0.14);
     --danger: #f87171;
+    --danger-soft: rgba(248, 113, 113, 0.14);
+    --brand: #818cf8;
+    --success: #4ade80;
+    --success-soft: rgba(74, 222, 128, 0.14);
+    --warning: #fbbf24;
+    --warning-soft: rgba(251, 191, 36, 0.16);
+    --neutral: #9ca3af;
+    --neutral-soft: rgba(156, 163, 175, 0.16);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
   }

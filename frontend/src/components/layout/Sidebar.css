@@ -1,0 +1,379 @@
+/* =====================================================================
+   Grouped, collapsible sidebar navigation
+   ===================================================================== */
+
+.sb {
+  width: 240px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  transition: width 0.2s ease;
+}
+.sb-collapsed {
+  width: 64px;
+}
+
+/* ----- Head: brand + collapse toggle ----- */
+.sb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 60px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+.sb-collapsed .sb-head {
+  justify-content: center;
+  padding: 0;
+}
+.sb-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-text);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.sb-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.sb-collapse {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.sb-collapse:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ----- Scrollable groups area ----- */
+.sb-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sb-collapsed .sb-scroll {
+  align-items: center;
+  padding: 10px 0;
+  gap: 6px;
+}
+
+/* ----- Section + group labels (smaller, muted, uppercase) ----- */
+.sb-section-label {
+  margin: 12px 12px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+/* ----- Links (leaf nav items) ----- */
+.sb-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px 0 8px;
+  border: none;
+  border-left: 4px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: left;
+}
+.sb-link:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+  text-decoration: none;
+}
+.sb-link.active {
+  background: var(--primary-soft);
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  font-weight: 700;
+}
+.sb-link-icon {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+.sb-link.active .sb-link-icon {
+  color: var(--color-primary);
+}
+.sb-link-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapsed rail: icon-only square buttons */
+.sb-collapsed .sb-link {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  justify-content: center;
+  border-left: none;
+  border-radius: 10px;
+}
+.sb-collapsed .sb-link.active {
+  border-left: none;
+  background: var(--primary-soft);
+}
+
+/* ----- Collapsible group (expanded view) ----- */
+.sb-grp {
+  display: flex;
+  flex-direction: column;
+}
+.sb-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 10px 0 12px;
+  margin-top: 8px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.sb-group-header:hover {
+  color: var(--color-text);
+}
+.sb-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.sb-chevron.open {
+  transform: rotate(180deg);
+}
+.sb-group-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease;
+}
+.sb-group-body.open {
+  max-height: 260px;
+}
+.sb-group-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 2px;
+}
+
+/* ----- Collapsed rail groups + flyout ----- */
+.sb-rail-item {
+  position: relative;
+}
+.sb-rail-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.sb-rail-btn:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+.sb-rail-btn.active {
+  background: var(--primary-soft);
+  color: var(--color-primary);
+}
+.sb-rail-btn.active .sb-link-icon {
+  color: var(--color-primary);
+}
+.sb-flyout {
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 0;
+  min-width: 190px;
+  padding: 8px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-6px);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  z-index: 50;
+}
+.sb-rail-item:hover .sb-flyout,
+.sb-rail-item:focus-within .sb-flyout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+.sb-flyout-title {
+  margin: 2px 8px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+/* ----- Account section pinned at bottom ----- */
+.sb-account {
+  flex-shrink: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sb-collapsed .sb-account {
+  align-items: center;
+}
+.sb-logout {
+  color: var(--danger);
+}
+.sb-logout .sb-link-icon {
+  color: var(--danger);
+}
+.sb-logout:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ----- Desktop wrapper / mobile drawer ----- */
+.sb-desktop {
+  display: contents;
+}
+.sb-drawer,
+.sb-drawer-scrim {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sb-desktop {
+    display: none;
+  }
+  .sb-drawer {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 80;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+  }
+  .sb-drawer.open {
+    transform: translateX(0);
+  }
+  .sb-drawer .sb {
+    position: static;
+    height: 100vh;
+  }
+  .sb-drawer-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 75;
+  }
+}
+
+/* =====================================================================
+   Topbar refinements (menu toggle, logo, search, dropdown theme item)
+   ===================================================================== */
+.shell-menu-btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.shell-menu-btn:hover {
+  background: var(--color-bg);
+}
+.shell-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+.shell-search {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+  margin: 0 12px;
+}
+.shell-search svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.shell-search input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px 0 36px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 14px;
+  outline: none;
+}
+.shell-search input:focus {
+  border-color: var(--color-primary);
+}
+@media (max-width: 620px) {
+  .shell-search {
+    display: none;
+  }
+}

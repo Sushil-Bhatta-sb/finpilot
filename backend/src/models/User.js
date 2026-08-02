@@ -6,6 +6,12 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true, minlength: 6 },
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
+  phone: { type: String },
+  photo: { type: String, default: '' },
+  currency: { type: String, default: 'NPR' },
+  timezone: { type: String, default: 'Asia/Kathmandu' },
+  theme: { type: String, enum: ['light', 'dark'], default: 'light' },
+  suspended: { type: Boolean, default: false },
 }, { timestamps: true });
 
 userSchema.pre('save', async function () {

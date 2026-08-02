@@ -1,4 +1,6 @@
 const Income = require('../models/Income');
+const logTransaction = require('../utils/logTransaction');
+const notify = require('../utils/notify');
 
 exports.getIncomes = async (req, res) => {
   const incomes = await Income.find({ user: req.user.id }).sort({ date: -1 });
@@ -7,6 +9,12 @@ exports.getIncomes = async (req, res) => {
 
 exports.createIncome = async (req, res) => {
   const income = await Income.create({ ...req.body, user: req.user.id });
+  await logTransaction(req.user.id, 'income', income._id, income.title, income.amount);
+  await notify(
+    req.user.id,
+    `New income added: ${income.title} — Rs. ${income.amount}`,
+    'income-added'
+  );
   res.status(201).json(income);
 };
 
