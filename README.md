@@ -154,7 +154,7 @@ _See the [docs/](docs/) folder for the full set of screenshots per task._
 ## Author
 **Sushil Bhatta**
 - GitHub: <https://github.com/Sushil-Bhatta-sb>
-- LinkedIn: <https://www.linkedin.com/in/sushil-bhatta>
+- LinkedIn: <https://www.linkedin.com/in/sushil-bhatta-67855b318/>
 - Portfolio: <https://sushil-bhatta.com.np>
 
 ## License
