@@ -54,13 +54,29 @@ manageable as feature count grew.
   status indicators
 
 ## Screenshots
+
+**Dashboard — overview with charts & stats**
 ![Dashboard](../../screenshots/level-3/dashboard.png)
+
+**Collapsed sidebar navigation**
 ![Collapsed sidebar](../../screenshots/level-3/sidebar-collapsed.png)
+
+**Budgets — progress bars & exceed alerts**
 ![Budgets with progress bars](../../screenshots/level-3/budgets.png)
+
+**Savings Goals — goal tracking & deposits**
 ![Savings Goals](../../screenshots/level-3/savings.png)
+
+**Investments — portfolio profit / loss**
 ![Investments](../../screenshots/level-3/investments.png)
+
+**Transactions — search, filter & export**
 ![Transactions with filters](../../screenshots/level-3/transactions.png)
+
+**Admin Panel — user management & stats**
 ![Admin Panel](../../screenshots/level-3/admin-panel.png)
+
+**Dark theme — light / dark mode support**
 ![Dark theme](../../screenshots/level-3/dark-theme.png)
 
 ## Deployment Readiness
