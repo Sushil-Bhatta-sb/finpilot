@@ -95,97 +95,22 @@ npm run dev
 
 ## API Overview
 
-### Auth
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | /api/auth/register | Create account, returns JWT | No |
-| POST | /api/auth/login | Login, returns JWT | No |
-| GET | /api/auth/me | Get current user | Yes |
-| GET | /api/auth/users | List all users | Yes (admin) |
+All routes are prefixed with `/api`. Protected routes require an `Authorization: Bearer <token>` header. A condensed summary is below — see the [docs/](docs/) for detailed request/response examples.
 
-### Income
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/income | List current user income | Yes |
-| POST | /api/income | Create income entry | Yes |
-| PUT | /api/income/:id | Update income entry | Yes |
-| DELETE | /api/income/:id | Delete income entry | Yes |
-
-### Expenses
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/expenses | List current user expenses | Yes |
-| POST | /api/expenses | Create expense entry | Yes |
-| PUT | /api/expenses/:id | Update expense entry | Yes |
-| DELETE | /api/expenses/:id | Delete expense entry | Yes |
-
-### Budgets
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/budgets | List budgets | Yes |
-| POST | /api/budgets | Create budget | Yes |
-| PUT | /api/budgets/:id | Update budget | Yes |
-| DELETE | /api/budgets/:id | Delete budget | Yes |
-
-### Savings Goals
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/savings | List savings goals | Yes |
-| POST | /api/savings | Create savings goal | Yes |
-| PUT | /api/savings/:id | Update savings goal | Yes |
-| DELETE | /api/savings/:id | Delete savings goal | Yes |
-| POST | /api/savings/:id/deposit | Deposit toward a goal | Yes |
-
-### Investments
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/investments | List investments | Yes |
-| POST | /api/investments | Create investment | Yes |
-| PUT | /api/investments/:id | Update investment | Yes |
-| DELETE | /api/investments/:id | Delete investment | Yes |
-
-### Categories
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/categories | List categories | Yes |
-| POST | /api/categories | Create category | Yes |
-| PUT | /api/categories/:id | Update category | Yes |
-| DELETE | /api/categories/:id | Delete category | Yes |
-
-### Transactions
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/transactions | List transactions (search/filter/sort) | Yes |
-| GET | /api/transactions/export/csv | Export transactions as CSV | Yes |
-| GET | /api/transactions/export/pdf | Export transactions as PDF | Yes |
-
-### Notifications
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/notifications | List notifications | Yes |
-| PUT | /api/notifications/:id/read | Mark notification as read | Yes |
-| DELETE | /api/notifications/:id | Delete notification | Yes |
-
-### Dashboard
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/dashboard/stats | Aggregated dashboard statistics | Yes |
-
-### Profile
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/profile | Get profile | Yes |
-| PUT | /api/profile | Update profile | Yes |
-| PUT | /api/profile/change-password | Change password | Yes |
-
-### Admin
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /api/admin/users | List all users | Yes (admin) |
-| DELETE | /api/admin/users/:id | Delete a user | Yes (admin) |
-| PUT | /api/admin/users/:id/suspend | Suspend a user | Yes (admin) |
-| GET | /api/admin/reports | Get all reports | Yes (admin) |
-| GET | /api/admin/stats | Platform-wide statistics | Yes (admin) |
+| Resource | Base Route | Endpoints | Access |
+|----------|-----------|-----------|--------|
+| Auth | `/auth` | register, login, me, users | Public / User / Admin |
+| Income | `/income` | list, create, update, delete | User |
+| Expenses | `/expenses` | list, create, update, delete | User |
+| Budgets | `/budgets` | list, create, update, delete | User |
+| Savings | `/savings` | list, create, update, delete, deposit | User |
+| Investments | `/investments` | list, create, update, delete | User |
+| Categories | `/categories` | list, create, update, delete | User |
+| Transactions | `/transactions` | list, export CSV, export PDF | User |
+| Notifications | `/notifications` | list, mark read, delete | User |
+| Dashboard | `/dashboard` | stats | User |
+| Profile | `/profile` | get, update, change password | User |
+| Admin | `/admin` | users, suspend, reports, stats | Admin |
 
 ## Internship Task Mapping
 
@@ -201,11 +126,27 @@ npm run dev
 
 ## Screenshots
 
-![Dashboard](screenshots/level-3/dashboard.png)
-![Budgets with progress bars](screenshots/level-3/budgets.png)
-![Transactions with filters](screenshots/level-3/transactions.png)
+| Dashboard | Budgets |
+|:---:|:---:|
+| ![Dashboard](screenshots/level-3/dashboard.png) | ![Budgets](screenshots/level-3/budgets.png) |
+| **Overview with charts & stats** | **Budget progress & alerts** |
 
-_See [docs/](docs/) for full screenshots per task._
+| Savings Goals | Investments |
+|:---:|:---:|
+| ![Savings Goals](screenshots/level-3/savings.png) | ![Investments](screenshots/level-3/investments.png) |
+| **Goal tracking & deposits** | **Portfolio profit / loss** |
+
+| Transactions | Admin Panel |
+|:---:|:---:|
+| ![Transactions](screenshots/level-3/transactions.png) | ![Admin Panel](screenshots/level-3/admin-panel.png) |
+| **Search, filter & export** | **User management & stats** |
+
+| Real-Time Notification | Dark Theme |
+|:---:|:---:|
+| ![Live Notification](screenshots/level-3/live-notification.png) | ![Dark Theme](screenshots/level-3/dark-theme.png) |
+| **Socket.io toast alert** | **Light / dark mode support** |
+
+_See the [docs/](docs/) folder for the full set of screenshots per task._
 
 ## Demo Video
 🎥 [Demo Video](VIDEO_LINK_HERE) <!-- TODO: add LinkedIn/YouTube video link once recorded -->
