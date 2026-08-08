@@ -12,7 +12,7 @@
 ![MongoDB connected](../../screenshots/level-1/mongo-connected.png)
 
 ## Repository
-GitHub: <https://github.com/Sushil-Bhatta-sb/codveda-fullstack-internship>
+GitHub: <https://github.com/Sushil-Bhatta-sb/finpilot>
 
 ## Basic Git Commands Practiced
 - git init
