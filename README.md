@@ -1,7 +1,7 @@
 # FinPilot – Personal Finance & Investment Dashboard
 
 ## Overview
-FinPilot is a full-stack MERN personal finance application for managing income, expenses, budgets, savings goals, investments, and real-time notifications. It provides a dashboard-style interface with charts, analytics, transaction history with export, custom categories, an admin panel, and role-based access control. It was built as part of the **Codveda Full-Stack Development Internship**.
+FinPilot is a full-stack MERN personal finance application for managing income, expenses, budgets, savings goals, investments, and real-time notifications. It provides a dashboard-style interface with charts, analytics, transaction history with export, custom categories, an admin panel, and role-based access control. It was built as the **FinPilot** full-stack project.
 
 ## Tech Stack
 
