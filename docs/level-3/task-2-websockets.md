@@ -30,13 +30,4 @@ Verified that:
   their own events
 - Socket disconnects cleanly on logout
 
-## Screenshots
 
-**Live notification toast (real-time alert)**
-![Live notification toast](../../screenshots/level-3/live-notification.png)
-
-**Notification bell dropdown**
-![Notification bell dropdown](../../screenshots/level-3/notification-bell.png)
-
-**Socket.io connection in browser devtools**
-![Socket.io connection in browser devtools](../../screenshots/level-3/socket-connection.png)
