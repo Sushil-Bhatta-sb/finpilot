@@ -33,23 +33,18 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
-                <Route
-                  element={
-                    <ProtectedRoute>
-                      <AppShell />
-                    </ProtectedRoute>
-                  }
-                >
+                {/* AppShell is public so guests can view Dashboard and general pages. */}
+                <Route element={<AppShell />}>
                   <Route path="/" element={<Dashboard />} />
-                  <Route path="/income" element={<Income />} />
-                  <Route path="/expenses" element={<Expenses />} />
-                  <Route path="/budgets" element={<Budgets />} />
-                  <Route path="/savings" element={<Savings />} />
-                  <Route path="/investments" element={<Investments />} />
-                  <Route path="/transactions" element={<Transactions />} />
-                  <Route path="/categories" element={<Categories />} />
-                  <Route path="/analytics" element={<Analytics />} />
-                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/income" element={<ProtectedRoute><Income /></ProtectedRoute>} />
+                  <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
+                  <Route path="/budgets" element={<ProtectedRoute><Budgets /></ProtectedRoute>} />
+                  <Route path="/savings" element={<ProtectedRoute><Savings /></ProtectedRoute>} />
+                  <Route path="/investments" element={<ProtectedRoute><Investments /></ProtectedRoute>} />
+                  <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
+                  <Route path="/categories" element={<ProtectedRoute><Categories /></ProtectedRoute>} />
+                  <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+                  <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                   <Route
                     path="/admin"
                     element={

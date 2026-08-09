@@ -21,7 +21,11 @@ export default function Login() {
     setLoading(true);
     try {
       await login(email, password);
-      navigate('/');
+      // Redirect back to the page that initiated auth, if provided.
+      const params = new URLSearchParams(location.search);
+      const next = params.get('next');
+      if (next) navigate(next);
+      else navigate('/');
     } catch {
       setError('Invalid email or password');
     } finally {

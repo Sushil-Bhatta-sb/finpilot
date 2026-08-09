@@ -18,8 +18,9 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('finpilot_token');
+      const next = `${window.location.pathname}${window.location.search}`;
       if (window.location.pathname !== '/login') {
-        window.location.assign('/login');
+        window.location.assign(`/login?next=${encodeURIComponent(next)}`);
       }
     }
     return Promise.reject(error);

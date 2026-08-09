@@ -16,6 +16,20 @@ const sumField = async (Model, match, field) => {
 };
 
 exports.getDashboardStats = async (req, res) => {
+  // If no authenticated user, return empty/default dashboard data for guests.
+  if (!req.user) {
+    return res.json({
+      totalIncome: 0,
+      totalExpense: 0,
+      currentBalance: 0,
+      totalSavings: 0,
+      totalInvestmentValue: 0,
+      budgetProgress: [],
+      recentTransactions: [],
+      unreadNotificationsCount: 0,
+    });
+  }
+
   const userId = new mongoose.Types.ObjectId(req.user.id);
 
   const month = new Date().toISOString().slice(0, 7);
