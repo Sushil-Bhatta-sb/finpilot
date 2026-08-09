@@ -1,170 +1,190 @@
 # FinPilot
 
-FinPilot is a full‑stack personal finance dashboard that helps users track income, expenses, budgets, savings goals, investments and transactions. It includes a responsive React + TypeScript frontend, an Express + Node.js API backend with JWT authentication, and MongoDB (Mongoose) for persistence. Socket.io is used for real‑time notifications.
+*A full‑stack personal finance dashboard for tracking income, expenses, budgets, savings goals, investments, and transactions.*
 
-Live Demo
-- Frontend: https://finpilot-oiek-q4zxkmfqt-sushil-bhattas-projects.vercel.app/
-- Backend API: https://finplot-rhir.onrender.com
+## Overview
 
-Summary (what this repository actually contains)
-- Frontend: React + TypeScript app (Vite) in `frontend/`.
-- Backend: Express API in `backend/` with Mongoose models and Socket.io in `backend/src/`.
-- Authentication: JWT issued on `/api/auth/login` and `/api/auth/register` and enforced by `backend/src/middleware/auth.js`.
+FinPilot is designed for individual users who want a single, privacy‑respecting dashboard to monitor personal finances. It provides a consolidated view of income and expenses, budget progress and alerts, savings goals, an investments tracker, transaction history with export options, and role‑based admin tools.
 
-Key Implemented Features
-- JWT authentication: register, login, `GET /api/auth/me` (server issues JWTs and `protect` middleware enforces them).
-- Dashboard: aggregated stats endpoint `GET /api/dashboard/stats` (now serves a guest-safe empty payload for unauthenticated requests).
-- CRUD for user-scoped resources: income, expenses, budgets, savings goals, investments, categories (all under `/api/*` and protected by middleware).
-- Transactions log: unified transaction entries, export to CSV and PDF via `/api/transactions/export/csv` and `/api/transactions/export/pdf`.
-- Budget recalculation & alerts: budgets recalc `spent` from expenses and emit budget alerts when thresholds are crossed.
-- Savings deposit endpoint: `POST /api/savings/:id/deposit` increments saved amount and notifies user on completion.
-- Real‑time notifications: Socket.io integration that emits persisted notifications to connected users; backend stores notifications in `Notification` model and emits them.
-- Admin endpoints: admin-only routes exist (user list, suspend user, aggregated reports) guarded by `authorize('admin')` middleware.
+## Live Demo
 
-Technology Stack
-- Frontend: React, TypeScript, Vite, React Router, Axios, Recharts, Socket.io Client
-- Backend: Node.js, Express, Mongoose, JWT (`jsonwebtoken`), bcryptjs, Socket.io, pdfkit
-- Database: MongoDB Atlas (via Mongoose)
+| Frontend | Backend API |
+|---|---|
+| [View Live App](https://finpilot-oiek-q4zxkmfqt-sushil-bhattas-projects.vercel.app/) | [API Base](https://finplot-rhir.onrender.com) |
 
-Frontend ↔ Backend communication
-- Frontend uses `frontend/src/api/client.ts` which uses `import.meta.env.VITE_API_URL` as the Axios `baseURL`.
-- Production front-end env (`frontend/.env.production`) is configured to point to the deployed backend: `https://finplot-rhir.onrender.com/api`.
-- Backend API routes are mounted under `/api/*` in `backend/src/app.js` (for example `/api/auth`, `/api/income`, `/api/expenses`, etc.).
+## Features
 
-Authentication & Authorization Flow
-- Register: `POST /api/auth/register` returns `{ token, user }`.
-- Login: `POST /api/auth/login` returns `{ token, user }`.
-- Token usage: the frontend stores the JWT in localStorage under `finpilot_token` and the Axios client attaches it to `Authorization: Bearer <token>`.
-- Protected endpoints: most resource routes use the `protect` middleware (backend `backend/src/middleware/auth.js`), which validates JWTs and populates `req.user`.
-- Role checks: `authorize(...roles)` middleware enforces admin-only operations (used by `backend/src/routes/adminRoutes.js`).
+- **Authentication** — JWT-based auth with bcrypt password hashing and role-based access control.
+- **Financial Tracking** — Create and manage income, expenses, budgets (with exceed alerts), savings goals, and investments.
+- **Insights** — Interactive dashboard with charts and category breakdowns.
+- **Real‑Time** — Socket.io powered per-user notifications and toast alerts.
+- **Admin Tools** — User management, suspend accounts, and platform reporting for admins.
+- **Data Export** — Export transaction history to CSV and PDF.
 
-Public vs Protected (what guests can do)
-- Public / guest-accessible:
-  - The landing/dashboard UI is accessible to guests. The dashboard stats endpoint will return an empty/default payload to unauthenticated requests.
-  - The login and register pages/endpoints are public (`/api/auth/register`, `/api/auth/login`).
-- Protected (requires authentication):
-  - Creating, editing, deleting Income (`/api/income`)
-  - Creating, editing, deleting Expenses (`/api/expenses`)
-  - Creating, editing, deleting Investments (`/api/investments`)
-  - Creating, editing, deleting Budgets (`/api/budgets`)
-  - Creating, editing, deleting Savings / Deposits (`/api/savings` and `/api/savings/:id/deposit`)
-  - Managing Transactions exports (`/api/transactions/*`) and viewing a user's transactions (`/api/transactions`)
-  - Categories CRUD (`/api/categories`)
-  - Notifications (`/api/notifications`)
-  - Profile read/update/change password (`/api/profile`)
-  - Admin operations (`/api/admin/*`) require the logged-in user to have the `admin` role
+## Tech Stack
 
-Note: both frontend and backend enforce auth. The frontend uses a `ProtectedRoute` wrapper; the backend returns `401`/`403` where applicable.
+| Layer | Technologies |
+|-------|--------------|
+| Frontend | React, TypeScript, Vite, React Router, Axios, Recharts, Socket.io Client |
+| Backend | Node.js, Express, JWT, bcryptjs, Socket.io, PDFKit |
+| Database | MongoDB (Mongoose) |
+| Deployment | Vercel (frontend), Render (backend), MongoDB Atlas |
 
-Repository / Folder Structure (top-level)
+## Project Structure
+
 ```
 finpilot/
 ├─ backend/
 │  ├─ server.js
-│  ├─ render.yaml            # Render blueprint for deployment
-  │  └─ src/
+│  ├─ render.yaml
+│  └─ src/
 │     ├─ app.js
 │     ├─ socket.js
-│     ├─ config/db.js
-│     ├─ middleware/auth.js
-     ├─ models/              # Mongoose models (User, Income, Expense, Budget, etc.)
-     ├─ controller/          # Route handlers
-     └─ routes/               # Express routes mounted under /api
+│     ├─ config/
+│     ├─ controller/
+│     ├─ middleware/
+│     ├─ models/
+│     └─ routes/
 ├─ frontend/
 │  ├─ package.json
-│  ├─ vite.config.ts
-│  ├─ .env.production        # points to deployed backend (/api)
 │  └─ src/
-│     ├─ api/                # Axios clients for auth, income, expense, etc.
-│     ├─ context/            # AuthContext, SocketContext, Theme, Toast
+│     ├─ api/
 │     ├─ components/
-│     └─ pages/              # Dashboard, Income, Expenses, Login, Register, etc.
+│     ├─ context/
+│     ├─ pages/
+│     └─ types/
 └─ docs/
+   ├─ level-1/
+   ├─ level2/
+   └─ level-3/
 ```
 
-MongoDB / Database
-- Connection: `backend/src/config/db.js` reads `process.env.MONGO_URI` and connects with Mongoose.
-- Collections: Mongoose models are defined under `backend/src/models/` (e.g. `User`, `Income`, `Expense`, `Budget`, `SavingsGoal`, `Investment`, `Transaction`, `Notification`, `Category`).
-- Auto-creation: MongoDB collections and documents are created on first write by Mongoose — there is no manual migration system in this codebase.
+## Getting Started
 
-Environment Variables (do NOT commit secrets)
-- Backend (`backend/.env`):
-  - `MONGO_URI` — MongoDB connection string (example: `mongodb+srv://user:pass@cluster.example.mongodb.net/finpilot`)
-  - `JWT_SECRET` — secret used to sign JWTs
-  - `FRONTEND_URL` — allowed CORS origin (e.g. Vercel frontend URL)
-  - `PORT` — server port (default 5000)
-- Frontend (`frontend/.env` or `frontend/.env.production`):
-  - `VITE_API_URL` — base API URL, must include the `/api` prefix in production (example: `https://finplot-rhir.onrender.com/api`)
+### Prerequisites
 
-How to run locally
-1. Backend
+- Node.js 18+ and `npm`
+- A MongoDB connection string (MongoDB Atlas recommended)
+
+### Installation
+
 ```bash
 cd backend
 npm install
-# create backend/.env with MONGO_URI, JWT_SECRET, FRONTEND_URL(optional), PORT(optional)
 npm run dev
 ```
-2. Frontend
+
 ```bash
 cd frontend
 npm install
-# set frontend/.env with VITE_API_URL (e.g. http://localhost:5000/api for local backend)
 npm run dev
 ```
 
-Build / Production
-- Frontend build: `cd frontend && npm run build` (this runs `tsc -b` and `vite build`).
-- Backend start (production): `cd backend && npm start` (runs `node server.js`).
+### Environment Variables
 
-API Endpoints (high level)
-- Auth: `/api/auth/register`, `/api/auth/login`, `/api/auth/me` (register/login are public; `/me` is protected)
-- Income: `/api/income` (GET/POST), `/api/income/:id` (PUT/DELETE) — protected
-- Expenses: `/api/expenses` — protected
-- Budgets: `/api/budgets` — protected
-- Savings: `/api/savings` and `POST /api/savings/:id/deposit` — protected
-- Investments: `/api/investments` — protected
-- Categories: `/api/categories` — protected
-- Transactions: `/api/transactions`, `/api/transactions/export/csv`, `/api/transactions/export/pdf` — protected
-- Notifications: `/api/notifications` — protected
-- Dashboard: `/api/dashboard/stats` — public (returns empty/default data for guests)
-- Profile: `/api/profile` — protected
-- Admin: `/api/admin/*` — protected + admin role required
+**backend/.env**
 
-Deployment notes
-- Frontend: hosted on Vercel (see `frontend/.env.production` and `frontend/vercel.json`).
-- Backend: has a Render blueprint at `backend/render.yaml` and is reachable at `https://finplot-rhir.onrender.com` (API under `/api`).
-- Database: intended for MongoDB Atlas (set `MONGO_URI` in Render/environment).
+| Variable | Description |
+|----------|-------------|
+| MONGO_URI | MongoDB connection string |
+| JWT_SECRET | Secret used to sign JWTs |
+| FRONTEND_URL | Allowed CORS origin |
+| PORT | Server port (default 5000) |
 
-Architecture diagram (simple ASCII)
+**frontend/.env**
 
-Frontend (Vercel) ---> HTTPS ---> Backend API (Render) ---> MongoDB Atlas
-                     \                         
-                      \-- WebSocket (Socket.io) --> Backend (push notifications) --> clients
+| Variable | Description |
+|----------|-------------|
+| VITE_API_URL | Backend API base URL, including `/api` |
 
-Security & Authentication Notes
-- JWTs: signed using `process.env.JWT_SECRET`. Keep this secret safe in production settings (Render environment variables / Vercel environment variables).
-- CORS: backend uses `FRONTEND_URL` environment variable to restrict origins in production; in development it falls back to permissive behavior.
-- No secrets are stored in this repo; ensure `.env` files are never committed.
+## API Reference
 
-Configuration & Verification Checklist
-- ✅ Backend routes are mounted under `/api/*` (`backend/src/app.js`).
-- ✅ Auth endpoints `/api/auth/register` and `/api/auth/login` exist (`backend/src/routes/authRoutes.js` and `backend/src/controller/authController.js`).
-- ✅ Frontend Axios client uses `VITE_API_URL` and frontend production env points to the deployed backend with the `/api` prefix (`frontend/.env.production`).
-- ✅ Protected database operations exist and are enforced by backend `protect` middleware (see `backend/src/middleware/auth.js` and all resource routers that `router.use(protect)`).
-- ✅ Transactions export (CSV/PDF) is implemented in `backend/src/controller/transactionController.js`.
-- ⚠️ Render / Vercel environment values: `MONGO_URI`, `JWT_SECRET`, and `FRONTEND_URL` are referenced in `backend/render.yaml` and `backend/server.js`, but their actual values in the Render dashboard cannot be verified from the codebase here — please confirm these in your Render project settings.
-- ⚠️ SSL / CORS in production: server restricts Socket.io `origin` to `FRONTEND_URL` if provided; confirm `FRONTEND_URL` matches your deployed Vercel domain.
-- ⚠️ Database backups, monitoring and production scaling are not covered by this repo — recommend setting up MongoDB Atlas backups and monitoring for production workloads.
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| POST | /api/auth/register | Create account, returns token and user | Public |
+| POST | /api/auth/login | Login, returns token and user | Public |
+| GET | /api/auth/me | Get current authenticated user | Required |
+| GET | /api/auth/users | List users (admin only) | Admin |
+| GET/POST | /api/income | List / create incomes (scoped to user) | Required |
+| PUT/DELETE | /api/income/:id | Update / delete an income owned by the user | Required |
+| GET/POST | /api/expenses | List / create expenses (scoped to user) | Required |
+| PUT/DELETE | /api/expenses/:id | Update / delete an expense owned by the user | Required |
+| GET/POST | /api/budgets | List / create budgets | Required |
+| PUT/DELETE | /api/budgets/:id | Update / delete budget | Required |
+| GET/POST | /api/savings | List / create savings goals | Required |
+| PUT/DELETE | /api/savings/:id | Update / delete savings goal | Required |
+| POST | /api/savings/:id/deposit | Deposit to a savings goal | Required |
+| GET/POST | /api/investments | List / create investments | Required |
+| PUT/DELETE | /api/investments/:id | Update / delete investment | Required |
+| GET/POST | /api/categories | List / create categories | Required |
+| PUT/DELETE | /api/categories/:id | Update / delete category | Required |
+| GET | /api/transactions | List transactions (filters supported) | Required |
+| GET | /api/transactions/export/csv | Export transactions as CSV | Required |
+| GET | /api/transactions/export/pdf | Export transactions as PDF | Required |
+| GET | /api/notifications | List notifications for user | Required |
+| DELETE | /api/notifications/:id | Delete a notification | Required |
+| PUT | /api/notifications/:id/read | Mark notification read | Required |
+| GET | /api/dashboard/stats | Dashboard stats (returns guest-safe payload if unauthenticated) | Public |
+| GET/PUT | /api/profile | Get / update profile | Required |
+| PUT | /api/profile/change-password | Change user password | Required |
+| GET/DELETE/PUT | /api/admin/* | Admin reports, list/delete users, suspend users | Admin |
 
-Future improvements (suggested)
-- (Future) Add automated tests / CI for backend endpoints.
-- (Future) Add database migration/versioning (e.g., migrate scripts or use MongoDB Realm/Atlas functions where appropriate).
-- (Future) Provide an admin UI for Render/Infra checks and health endpoints.
+## Authentication Flow
 
-Author & License
-- Author: Sushil Bhatta
-- License: MIT
+Registering or logging in returns a signed JWT. The frontend stores that token in local storage and the Axios client attaches it as an `Authorization: Bearer <token>` header for subsequent requests. Backend middleware validates the token on protected routes, populates `req.user`, and enforces role checks where applicable.
 
-If you want, I can also:
-- Run a local verification (start both servers) and exercise the guest vs authenticated flows.
-- Add a short Troubleshooting section with common errors (CORS, JWT expired, env var mistakes).
+## Real‑Time Notifications
+
+The application uses Socket.io for real‑time, per‑user notifications. Clients join a private room identified by their user ID after connecting; the backend emits events such as budget alerts, savings goal completion, and investment updates. The frontend listens for `notification` events to update the notification bell and show toast alerts.
+
+## Internship Task Breakdown
+
+### Level 1 — Basic
+
+**Task 1: Development Environment Setup**
+
+The project documents the local development setup and verification (Node/npm versions and MongoDB connection). The repo includes screenshots demonstrating successful environment checks. See the full task details in the project docs: [Task 1 — Environment Setup](docs/level-1/task-1-environment-setup.md).
+
+**Task 2: REST API**
+
+Implemented a simple Express REST API with full CRUD for Income and Expense resources, input validation, centralized error handling, and example test collections (Thunder Client / Postman). Endpoints and example requests are documented in the task file: [Task 2 — REST API](docs/level-1/task-2-rest-api.md).
+
+### Level 2 — Intermediate
+
+**Task 1: Frontend Framework**
+
+The frontend was rebuilt with React 19, TypeScript, and Vite. It provides a component library (`src/components/ui`), typed API clients in `src/api`, global state via `AuthContext`, and protected routes via `ProtectedRoute`. See details and screenshots: [Task 1 — Frontend Framework](docs/level2/task-1-frontend-framework.md).
+
+**Task 2: Authentication**
+
+Server-side authentication uses `bcryptjs` for hashing and `jsonwebtoken` for JWTs. The `User` model hashes passwords pre-save and the `protect` and `authorize` middleware enforce authentication and role‑based authorization. Frontend integrates via an Axios interceptor and `AuthContext`. See the implementation notes: [Task 2 — Authentication](docs/level2/task-2-auth.md).
+
+**Task 3: Database Integration**
+
+MongoDB integration is implemented using Mongoose models with validation and indexes (notably `{ user: 1, date: -1 }` on income and expense). Controllers scope CRUD operations to the authenticated user. See the model summaries and validation behavior: [Task 3 — Database Integration](docs/level2/task-3-database.md).
+
+### Level 3 — Advanced
+
+**Task 1: Full‑Stack Application**
+
+The Level 3 work ties together authentication, dashboard, income/expense, budgets (with threshold alerts), savings goals, investments, transactions (with CSV/PDF export), categories, analytics, profile, and an admin panel. Role checks and ownership filters are enforced across controllers. For full module lists and UI notes, see: [Task 1 — Fullstack Application](docs/level-3/task-1-fullstack-application.md).
+
+**Task 2: WebSockets**
+
+Socket.io is used to deliver private real‑time notifications to users; the backend attaches Socket.io to the HTTP server and emits events to user‑specific rooms. The frontend connects after login and updates the UI on `notification` events. Read the full details here: [Task 2 — WebSockets](docs/level-3/task-2-websockets.md).
+
+## Documentation
+
+For screenshots, test evidence, and full implementation notes for each task above, see the project `docs/` folder.
+
+## Demo Video
+
+[Watch Demo](VIDEO_LINK_PLACEHOLDER)
+
+## Author
+
+Sushil Bhatta — [GitHub](https://github.com/Sushil-Bhatta-sb) · [LinkedIn](https://www.linkedin.com/in/sushil-bhatta-67855b318/) · [Portfolio](https://sushil-bhatta.com.np)
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
