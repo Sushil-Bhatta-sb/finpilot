@@ -65,14 +65,21 @@ The URI is stored in `backend/.env` and never committed.
 
 ## Testing
 ### Screenshots
+
 **MongoDB Atlas connected**
-![Mongo connected](../../screenshots/level-2/db-connected.png)
+<p align="center">
+  <img src="../../screenshots/level-2/db-connected.png" alt="Mongo connected" />
+</p>
 
 **Create record with validation**
-![Create with validation](../../screenshots/level-2/db-create.png)
+<p align="center">
+  <img src="../../screenshots/level-2/db-create.png" alt="Create with validation" />
+</p>
 
 **Rejected negative amount (validation error)**
-![Validation error](../../screenshots/level-2/db-validation-error.png)
+<p align="center">
+  <img src="../../screenshots/level-2/db-validation-error.png" alt="Validation error" />
+</p>
 
 ## Error Handling
 The centralized error handler returns JSON with proper status codes:

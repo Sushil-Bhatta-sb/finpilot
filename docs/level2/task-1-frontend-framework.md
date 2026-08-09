@@ -74,11 +74,18 @@ Set `VITE_API_URL` in `frontend/.env` to the backend API base URL
 (e.g. `http://localhost:5000/api`).
 
 ## Screenshots
+
 **Login page**
-![Login page](../../screenshots/level-2/login.png)
+<p align="center">
+  <img src="../../screenshots/level-2/login.png" alt="Login page" />
+</p>
 
 **Register page**
-![Register page](../../screenshots/level-2/register.png)
+<p align="center">
+  <img src="../../screenshots/level-2/register.png" alt="Register page" />
+</p>
 
 **Dashboard with summary**
-![Dashboard](../../screenshots/level-2/dashboard.png)
+<p align="center">
+  <img src="../../screenshots/level-2/dashboard.png" alt="Dashboard" />
+</p>

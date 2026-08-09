@@ -137,7 +137,7 @@ Registering or logging in returns a signed JWT. The frontend stores that token i
 
 The application uses Socket.io for real‑time, per‑user notifications. Clients join a private room identified by their user ID after connecting; the backend emits events such as budget alerts, savings goal completion, and investment updates. The frontend listens for `notification` events to update the notification bell and show toast alerts.
 
-## Internship Task Breakdown
+## Task Breakdown
 
 ### Level 1 — Basic
 

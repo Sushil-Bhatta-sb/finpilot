@@ -56,28 +56,44 @@ manageable as feature count grew.
 ## Screenshots
 
 **Dashboard — overview with charts & stats**
-![Dashboard](../../screenshots/level-3/dashboard.png)
+<p align="center">
+  <img src="../../screenshots/level-3/dashboard.png" alt="Dashboard" />
+</p>
 
 **Collapsed sidebar navigation**
-![Collapsed sidebar](../../screenshots/level-3/sidebar-collapsed.png)
+<p align="center">
+  <img src="../../screenshots/level-3/sidebar-collapsed.png" alt="Collapsed sidebar" />
+</p>
 
 **Budgets — progress bars & exceed alerts**
-![Budgets with progress bars](../../screenshots/level-3/budgets.png)
+<p align="center">
+  <img src="../../screenshots/level-3/budgets.png" alt="Budgets with progress bars" />
+</p>
 
 **Savings Goals — goal tracking & deposits**
-![Savings Goals](../../screenshots/level-3/savings.png)
+<p align="center">
+  <img src="../../screenshots/level-3/savings.png" alt="Savings Goals" />
+</p>
 
 **Investments — portfolio profit / loss**
-![Investments](../../screenshots/level-3/investments.png)
+<p align="center">
+  <img src="../../screenshots/level-3/investments.png" alt="Investments" />
+</p>
 
 **Transactions — search, filter & export**
-![Transactions with filters](../../screenshots/level-3/transactions.png)
+<p align="center">
+  <img src="../../screenshots/level-3/transactions.png" alt="Transactions with filters" />
+</p>
 
 **Admin Panel — user management & stats**
-![Admin Panel](../../screenshots/level-3/admin-panel.png)
+<p align="center">
+  <img src="../../screenshots/level-3/admin-panel.png" alt="Admin Panel" />
+</p>
 
 **Dark theme — light / dark mode support**
-![Dark theme](../../screenshots/level-3/dark-theme.png)
+<p align="center">
+  <img src="../../screenshots/level-3/dark-theme.png" alt="Dark theme" />
+</p>
 
 ## Deployment Readiness
 - Backend configured for Render (env vars: MONGO_URI, JWT_SECRET, 

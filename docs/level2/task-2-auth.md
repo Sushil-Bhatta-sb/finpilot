@@ -72,14 +72,21 @@ Steps:
    an admin token to see the user list.
 
 ### Screenshots
+
 **Register (JWT returned)**
-![Register success](../../screenshots/level-2/auth-register.png)
+<p align="center">
+  <img src="../../screenshots/level-2/auth-register.png" alt="Register success" />
+</p>
 
 **Login (JWT returned)**
-![Login success](../../screenshots/level-2/auth-login.png)
+<p align="center">
+  <img src="../../screenshots/level-2/auth-login.png" alt="Login success" />
+</p>
 
 **Protected route without token (401)**
-![Unauthorized](../../screenshots/level-2/auth-401.png)
+<p align="center">
+  <img src="../../screenshots/level-2/auth-401.png" alt="Unauthorized" />
+</p>
 
 ## Error Handling
 - `400` — email already registered / invalid input

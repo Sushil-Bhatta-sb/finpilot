@@ -29,9 +29,8 @@ for two resources: Income and Expense.
 - Postman — used to create a shareable collection for submission
 
 ### Postman Collection
-A full Postman collection covering every endpoint (GET, POST, PUT, DELETE
-for both Income and Expense, including error cases) is included at:
-`postman/finpilot-level1.postman_collection.json`
+
+A full Postman collection covering every endpoint (GET, POST, PUT, DELETE for both Income and Expense, including error cases) is included at `postman/finpilot-level1.postman_collection.json`.
 
 To test it:
 1. Open Postman
@@ -42,22 +41,34 @@ To test it:
 ### Manual Test Screenshots
 
 **Create income**
-![Create income](../../screenshots/level-1/create-income.png)
+<p align="center">
+	<img src="../../screenshots/level-1/create-income.png" alt="Create income" />
+</p>
 
 **Get all income**
-![Get all income](../../screenshots/level-1/get-income.png)
+<p align="center">
+	<img src="../../screenshots/level-1/get-income.png" alt="Get all income" />
+</p>
 
 **Update income**
-![Update income](../../screenshots/level-1/update-income.png)
+<p align="center">
+	<img src="../../screenshots/level-1/update-income.png" alt="Update income" />
+</p>
 
 **Delete income**
-![Delete income](../../screenshots/level-1/delete-income.png)
+<p align="center">
+	<img src="../../screenshots/level-1/delete-income.png" alt="Delete income" />
+</p>
 
 **Create expense**
-![Create expense](../../screenshots/level-1/create-expense.png)
+<p align="center">
+	<img src="../../screenshots/level-1/create-expense.png" alt="Create expense" />
+</p>
 
 **Error handling - invalid ID**
-![Error handling - invalid ID](../../screenshots/level-1/error-invalid-id.png)
+<p align="center">
+	<img src="../../screenshots/level-1/error-invalid-id.png" alt="Error handling - invalid ID" />
+</p>
 
 ## Error Handling
 Centralized error handler middleware returns JSON errors with proper HTTP

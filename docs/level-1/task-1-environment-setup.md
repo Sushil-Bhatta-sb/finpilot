@@ -8,8 +8,13 @@
 - Database: MongoDB Atlas (cloud-hosted)
 
 ## Verification
-![Node/npm/git versions](../../screenshots/level-1/tool-versions.png)
-![MongoDB connected](../../screenshots/level-1/mongo-connected.png)
+<p align="center">
+	<img src="../../screenshots/level-1/tool-versions.png" alt="Node/npm/git versions" />
+</p>
+
+<p align="center">
+	<img src="../../screenshots/level-1/mongo-connected.png" alt="MongoDB connected" />
+</p>
 
 ## Repository
 GitHub: <https://github.com/Sushil-Bhatta-sb/finpilot>
