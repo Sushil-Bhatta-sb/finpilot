@@ -179,7 +179,7 @@ For screenshots, test evidence, and full implementation notes for each task abov
 
 ## Demo Video
 
-[Watch Demo](finpilot-demo-video.mp4)
+[Watch Demo](https://drive.google.com/file/d/1gZ023Yg2RliebmtTLqcwf_VT8UtQVZjE/view?usp=sharing)
 
 ## Author
 
