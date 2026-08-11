@@ -179,7 +179,7 @@ For screenshots, test evidence, and full implementation notes for each task abov
 
 ## Demo Video
 
-[Watch Demo](VIDEO_LINK_PLACEHOLDER)
+[Watch Demo](finpilot-demo-video.mp4)
 
 ## Author
 
