@@ -1,0 +1,937 @@
+%==============================================================================
+%  FinPilot -- Personal Finance & Investment Dashboard
+%  Full-Stack Development Internship -- Codveda Technologies
+%  Internship Documentation Report
+%
+%  Compile with:  pdflatex  (run twice for the table of contents), or xelatex.
+%
+%    pdflatex FinPilot-Codveda-Internship-Documentation.tex
+%    pdflatex FinPilot-Codveda-Internship-Documentation.tex
+%
+%  Images are referenced from the project's ../screenshots/ folders.
+%  See report/README.md for the full image mapping.
+%==============================================================================
+\documentclass[11pt,a4paper]{report}
+
+%------------------------------------------------------------------ packages ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=1in,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+
+%-------------------------------------------------------------------- colors ---
+\definecolor{brandprimary}{HTML}{1F3A5F}   % deep navy
+\definecolor{brandaccent}{HTML}{2E86AB}    % teal blue
+\definecolor{brandlight}{HTML}{EAF2F8}     % light panel
+\definecolor{codebg}{HTML}{F5F7FA}
+\definecolor{codekw}{HTML}{1F3A5F}
+\definecolor{codecomment}{HTML}{6A737D}
+\definecolor{codestring}{HTML}{2E7D32}
+\definecolor{rulegray}{HTML}{B0BEC5}
+
+%---------------------------------------------------------------- hyperlinks ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=brandprimary,
+  urlcolor=brandaccent,
+  citecolor=brandaccent,
+  pdftitle={FinPilot -- Codveda Full-Stack Internship Documentation},
+  pdfauthor={Sushil Bhatta}
+}
+
+%----------------------------------------------------------- section styling ---
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{brandprimary}}
+  {\filright\Large\color{brandaccent}\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {6pt}
+  {\Huge}
+\titlespacing*{\chapter}{0pt}{10pt}{24pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{brandprimary}}{\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{brandaccent}}{\thesubsection}{0.6em}{}
+
+%--------------------------------------------------------- header and footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\small\color{brandprimary}\textbf{FinPilot}}
+\fancyhead[R]{\small\color{brandprimary}Codveda Full-Stack Internship}
+\fancyfoot[L]{\small Sushil Bhatta}
+\fancyfoot[C]{\small FinPilot -- Personal Finance \& Investment Dashboard}
+\fancyfoot[R]{\small\thepage}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyfoot[C]{\small\thepage}
+}
+
+%------------------------------------------------------------ listing styling ---
+\lstdefinestyle{finpilot}{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codestring},
+  numberstyle=\tiny\color{codecomment},
+  numbers=left,
+  numbersep=8pt,
+  frame=single,
+  rulecolor=\color{rulegray},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+  xleftmargin=14pt,
+  framexleftmargin=14pt
+}
+\lstset{style=finpilot}
+
+%-------------------------------------------------------------- table helper ---
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.25}
+
+% Consistent figure helper
+\newcommand{\finfig}[3]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#2\linewidth,keepaspectratio]{#1}
+    \caption{#3}
+  \end{figure}%
+}
+
+\captionsetup{font=small,labelfont={bf,color=brandprimary}}
+
+%==============================================================================
+\begin{document}
+
+%------------------------------------------------------------------ COVER ------
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{center}
+    \vspace*{0.6cm}
+
+    {\color{brandaccent}\rule{\linewidth}{2pt}}\\[0.4cm]
+    {\Huge\bfseries\color{brandprimary} FinPilot}\\[0.35cm]
+    {\LARGE\color{brandprimary} Personal Finance \& Investment Dashboard}\\[0.30cm]
+    {\color{brandaccent}\rule{\linewidth}{2pt}}\\[1.4cm]
+
+    {\Large\bfseries Full-Stack Development Internship}\\[0.5cm]
+    {\large Internship Project Documentation}\\[1.6cm]
+
+    \begin{tabular}{rl}
+      \textbf{Organization:} & Codveda Technologies \\[0.35cm]
+      \textbf{Project:}      & FinPilot -- Personal Finance \& Investment Dashboard \\[0.35cm]
+      \textbf{Project Type:} & Full-Stack Web Application (MERN) \\[0.35cm]
+      \textbf{Submitted by:} & Sushil Bhatta \\
+    \end{tabular}
+
+    \vfill
+
+    \begin{tabular}{rl}
+      \textbf{Live App:} & \url{https://finpilot-oiek-q4zxkmfqt-sushil-bhattas-projects.vercel.app/} \\[0.2cm]
+      \textbf{API Base:} & \url{https://finplot-rhir.onrender.com} \\[0.2cm]
+      \textbf{Repository:} & \url{https://github.com/Sushil-Bhatta-sb/finpilot} \\
+    \end{tabular}
+
+    \vspace{1.2cm}
+    {\color{brandaccent}\rule{\linewidth}{1pt}}
+  \end{center}
+\end{titlepage}
+
+%----------------------------------------------------------- TABLE OF CONTENTS -
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+%==============================================================================
+\chapter{Project Overview}
+%==============================================================================
+
+\section{Introduction}
+FinPilot is a full-stack personal finance dashboard for tracking income,
+expenses, budgets, savings goals, investments, and transactions. It is designed
+for individual users who want a single, privacy-respecting dashboard to monitor
+their personal finances. The application provides a consolidated view of income
+and expenses, budget progress and alerts, savings goals, an investments tracker,
+transaction history with export options, and role-based admin tools.
+
+\section{Purpose}
+The goal of FinPilot is to give an individual user one place to understand where
+their money comes from and where it goes. Every financial record is scoped to the
+authenticated user, so a user can only view and modify their own data. Admin
+users additionally receive platform-level management and reporting tools.
+
+\section{Major Features}
+\begin{itemize}[leftmargin=1.4em]
+  \item \textbf{Authentication} --- JWT-based auth with bcrypt password hashing
+        and role-based access control.
+  \item \textbf{Financial Tracking} --- Create and manage income, expenses,
+        budgets (with exceed alerts), savings goals, and investments.
+  \item \textbf{Insights} --- Interactive dashboard with charts and category
+        breakdowns.
+  \item \textbf{Real-Time} --- Socket.io powered per-user notifications and
+        toast alerts.
+  \item \textbf{Admin Tools} --- User management, suspend accounts, and platform
+        reporting for admins.
+  \item \textbf{Data Export} --- Export transaction history to CSV and PDF.
+\end{itemize}
+
+\section{Architecture}
+FinPilot follows a classic three-tier full-stack architecture. The React
+frontend communicates with the Express REST API over HTTP, and the API persists
+data in MongoDB through Mongoose. A Socket.io channel runs alongside the REST API
+to deliver real-time notifications to individual users.
+
+\begin{center}
+\vspace{0.3cm}
+{\large\bfseries\color{brandprimary} Frontend \;$\longrightarrow$\; Backend API \;$\longrightarrow$\; Database}\\[0.2cm]
+{\small React (Vercel) \quad$\longrightarrow$\quad Node/Express (Render) \quad$\longrightarrow$\quad MongoDB Atlas}
+\vspace{0.3cm}
+\end{center}
+
+\section{Technology Stack}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{>{\bfseries}l X}
+\toprule
+Layer & Technologies \\
+\midrule
+Frontend   & React, TypeScript, Vite, React Router, Axios, Recharts, Socket.io Client \\
+Backend    & Node.js, Express, JWT, bcryptjs, Socket.io, PDFKit \\
+Database   & MongoDB (Mongoose) \\
+Deployment & Vercel (frontend), Render (backend), MongoDB Atlas \\
+\bottomrule
+\end{tabularx}
+\caption{FinPilot technology stack by layer.}
+\end{table}
+
+\section{Authentication Behavior}
+The dashboard and general pages can initially be viewed without logging in ---
+the dashboard statistics endpoint returns a guest-safe payload when the request
+is unauthenticated. Authentication is required only when accessing personal or
+database-specific functionality. Protected operations include all user-specific
+financial data (income, expenses, budgets, savings, investments, transactions,
+categories) and profile/account operations. These protections are enforced on
+the backend as well, so the API rejects unauthenticated access to private routes
+regardless of the client used.
+
+\section{Project Structure}
+\begin{lstlisting}[language=bash,caption={FinPilot repository structure.}]
+finpilot/
+|- backend/
+|  |- server.js
+|  |- render.yaml
+|  \- src/
+|     |- app.js
+|     |- socket.js
+|     |- config/
+|     |- controller/
+|     |- middleware/
+|     |- models/
+|     \- routes/
+|- frontend/
+|  |- package.json
+|  \- src/
+|     |- api/
+|     |- components/
+|     |- context/
+|     |- pages/
+|     \- types/
+\- docs/
+   |- level-1/
+   |- level2/
+   \- level-3/
+\end{lstlisting}
+
+%==============================================================================
+\chapter{Level 1 --- Basic}
+%==============================================================================
+
+\section{Task 1 --- Development Environment Setup}
+
+\subsection{Objective}
+Set up and verify a working local development environment for building the
+FinPilot full-stack application, and initialize version control.
+
+\subsection{Tools Installed}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{>{\bfseries}l X}
+\toprule
+Tool & Version / Detail \\
+\midrule
+Node.js      & v20.x \\
+npm          & v10.x \\
+Git          & v2.x \\
+Code Editor  & VS Code \\
+Database     & MongoDB Atlas (cloud-hosted) \\
+\bottomrule
+\end{tabularx}
+\caption{Development environment toolchain.}
+\end{table}
+
+\subsection{Version Control}
+The project repository is hosted on GitHub at
+\url{https://github.com/Sushil-Bhatta-sb/finpilot}. Basic Git commands were
+practiced as part of the setup: \texttt{git init}, \texttt{git add .},
+\texttt{git commit -m "message"}, and \texttt{git push origin main}.
+
+\subsection{Verification}
+\finfig{../screenshots/level-1/tool-versions.png}{0.8}{Verifying installed Node.js, npm, and Git versions.}
+\finfig{../screenshots/level-1/mongo-connected.png}{0.8}{Successful connection to the MongoDB Atlas database.}
+
+\subsection{Contribution to FinPilot}
+This task established the toolchain, cloud database, and version control that
+every later task builds upon, ensuring a reproducible environment for developing
+and deploying the application.
+
+\section{Task 2 --- REST API}
+
+\subsection{Objective}
+Build a simple REST API providing full CRUD operations for two core resources of
+the finance domain: \textbf{Income} and \textbf{Expense}.
+
+\subsection{Technologies Used}
+Node.js, Express, and MongoDB via the Mongoose ODM.
+
+\subsection{Implementation}
+A REST API was implemented with full CRUD for the Income and Expense resources,
+input validation, and centralized error handling. The endpoints follow REST
+conventions and return JSON responses.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l l X}
+\toprule
+\textbf{Method} & \textbf{Endpoint} & \textbf{Description} \\
+\midrule
+GET    & /api/income      & Get all income \\
+POST   & /api/income      & Create income entry \\
+PUT    & /api/income/:id  & Update income entry \\
+DELETE & /api/income/:id  & Delete income entry \\
+\midrule
+GET    & /api/expenses     & Get all expenses \\
+POST   & /api/expenses     & Create expense entry \\
+PUT    & /api/expenses/:id & Update expense entry \\
+DELETE & /api/expenses/:id & Delete expense entry \\
+\bottomrule
+\end{tabularx}
+\caption{Level 1 REST API endpoints for Income and Expense.}
+\end{table}
+
+\subsection{Error Handling}
+A centralized error-handler middleware returns JSON errors with proper HTTP
+status codes (404 for not found, 500 for server errors).
+
+\subsection{Testing and Verification}
+The API was tested during development using \textbf{Thunder Client} (a VS Code
+extension), and a shareable \textbf{Postman} collection was created for
+submission covering every endpoint (GET, POST, PUT, DELETE for both resources,
+including error cases). The collection is included at
+\texttt{postman/finpilot-level1.postman\_collection.json}; the \texttt{baseUrl}
+variable is set to \texttt{http://localhost:5000/api} and requests are run in
+order (Create $\rightarrow$ Get $\rightarrow$ Update $\rightarrow$ Delete).
+
+\finfig{../screenshots/level-1/create-income.png}{0.85}{Creating an income entry via the REST API.}
+\finfig{../screenshots/level-1/get-income.png}{0.85}{Retrieving all income entries.}
+\finfig{../screenshots/level-1/update-income.png}{0.85}{Updating an existing income entry.}
+\finfig{../screenshots/level-1/delete-income.png}{0.85}{Deleting an income entry.}
+\finfig{../screenshots/level-1/create-expense.png}{0.85}{Creating an expense entry via the REST API.}
+\finfig{../screenshots/level-1/error-invalid-id.png}{0.85}{Error handling for an invalid resource ID.}
+
+\subsection{Contribution to FinPilot}
+This task delivered the first working slice of FinPilot's backend --- the
+Income and Expense data model and CRUD endpoints --- which the frontend, database
+integration, and later financial modules extend and build upon.
+
+%==============================================================================
+\chapter{Level 2 --- Intermediate}
+%==============================================================================
+
+\section{Task 1 --- Frontend Framework}
+
+\subsection{Objective}
+Rebuild the FinPilot frontend using a modern JavaScript framework with a
+component-based, type-safe architecture, centralized state management, and typed
+API calls with loading states.
+
+\subsection{Technologies Used}
+\begin{itemize}[leftmargin=1.4em]
+  \item \textbf{React 19} + \textbf{TypeScript} --- component-based, type-safe UI.
+  \item \textbf{Vite} --- fast dev server and build tool.
+  \item \textbf{React Router v7} --- client-side routing and protected routes.
+  \item \textbf{Axios} --- HTTP client with request/response interceptors.
+\end{itemize}
+
+\subsection{Implementation}
+The frontend was built as a Vite + React + TypeScript project under
+\texttt{frontend/}. All components use hooks; global authentication state is held
+in \texttt{AuthContext} via the Context API. Typed Axios services live in
+\texttt{src/api/}, and every form and list shows spinners while requests are
+pending. A small set of reusable UI components was created.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{>{\ttfamily\bfseries}l X}
+\toprule
+\normalfont\bfseries Component & Purpose \\
+\midrule
+Button  & Variants (primary/secondary/danger/ghost), built-in loading spinner, full-width option \\
+Input   & Labeled input with consistent focus styling \\
+Card    & Surface container used for panels and auth forms \\
+Spinner & Inline loading indicator for lists \\
+\bottomrule
+\end{tabularx}
+\caption{Reusable UI components in \texttt{src/components/ui/}.}
+\end{table}
+
+\subsection{State Management and Feedback}
+\texttt{AuthContext} centralizes the authenticated user, token, and the
+\texttt{login} / \texttt{register} / \texttt{logout} actions. The Dashboard lifts
+income and expense totals into local state to render a live
+\textbf{Total Income / Total Expenses / Balance} summary. Login and Register
+buttons show a spinner and disable while a request is in flight; income and
+expense lists show a loading spinner on first fetch, an empty state when there is
+no data, and inline error messages on failure.
+
+\subsection{Styling}
+A custom design system was added via CSS variables in
+\texttt{frontend/src/index.css} with component styles in
+\texttt{frontend/src/App.css}, including automatic light/dark mode support.
+
+\subsection{Frontend Project Structure}
+\begin{lstlisting}[language=bash,caption={Frontend source layout.}]
+frontend/src/
+  api/            # Axios client + typed service calls (auth, income, expense)
+  components/
+    ui/           # Reusable UI: Button, Input, Card, Spinner
+    incomeList.tsx
+    expenseList.tsx
+    ProtectedRoute.tsx
+  context/
+    AuthContext.tsx   # Global auth state (login, register, logout)
+  pages/
+    Login.tsx
+    Register.tsx
+  types/          # Shared TypeScript interfaces
+  App.tsx         # Routes + Dashboard
+\end{lstlisting}
+
+\subsection{Screenshots}
+\finfig{../screenshots/level-2/login.png}{0.8}{Login page built with React and TypeScript.}
+\finfig{../screenshots/level-2/register.png}{0.8}{Registration page with client-side validation.}
+\finfig{../screenshots/level-2/dashboard.png}{0.85}{Dashboard showing the live income/expense/balance summary.}
+
+\subsection{Contribution to FinPilot}
+This task delivered the application's user interface foundation --- routing,
+global auth state, typed API clients, and the reusable component library --- that
+all later feature pages (budgets, savings, investments, analytics, admin) reuse.
+
+\section{Task 2 --- Authentication}
+
+\subsection{Objective}
+Implement user authentication (signup/login) with secure password storage and
+stateless sessions, protect backend routes, and restrict access based on user
+roles (\texttt{user} / \texttt{admin}).
+
+\subsection{Technologies Used}
+\texttt{bcryptjs} for password hashing and \texttt{jsonwebtoken} (JWT) for
+stateless sessions, integrated on the frontend through an Axios interceptor and
+\texttt{AuthContext}.
+
+\subsection{Auth Endpoints}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l l l X}
+\toprule
+\textbf{Method} & \textbf{Endpoint} & \textbf{Access} & \textbf{Description} \\
+\midrule
+POST & /api/auth/register & Public        & Create account, returns JWT \\
+POST & /api/auth/login    & Public        & Login, returns JWT \\
+GET  & /api/auth/me       & Authenticated & Get current user \\
+GET  & /api/auth/users    & Admin only    & List all users (role-based) \\
+\bottomrule
+\end{tabularx}
+\caption{Authentication endpoints and required access level.}
+\end{table}
+
+\subsection{Password Hashing}
+Passwords are never stored in plain text. The \texttt{User} model hashes the
+password before saving and exposes a \texttt{comparePassword()} helper for login.
+
+\begin{lstlisting}[language=Java,caption={Password hashing in a pre-save hook on the User model.}]
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+\end{lstlisting}
+
+\subsection{JWT Flow}
+\begin{enumerate}[leftmargin=1.6em]
+  \item On register/login the server signs a JWT containing the user \texttt{id}
+        and \texttt{role} (expires in 7 days).
+  \item The frontend stores the token and attaches it as
+        \texttt{Authorization: Bearer <token>} on every request via an Axios
+        interceptor.
+  \item The \texttt{protect} middleware verifies the token, loads the user, and
+        attaches it to \texttt{req.user}.
+  \item On a \texttt{401} response the frontend clears the token and redirects to
+        \texttt{/login}.
+\end{enumerate}
+
+\subsection{Role-Based Access Control}
+The \texttt{User} model has a \texttt{role} field
+(\texttt{enum: ['user', 'admin']}, default \texttt{user}). The
+\texttt{authorize(...roles)} middleware returns \texttt{403 Forbidden} when the
+user's role is not permitted --- for example, \texttt{GET /api/auth/users} is
+guarded by \texttt{protect, authorize('admin')}. On the frontend,
+\texttt{AuthContext} verifies the session on load via \texttt{GET /api/auth/me}
+and \texttt{ProtectedRoute} redirects unauthenticated users to \texttt{/login}.
+
+\subsection{Testing and Verification}
+A Postman collection at
+\texttt{postman/finpilot-level2.postman\_collection.json} covers register, login,
+\texttt{me}, protected access, and the admin-only route. The flow verifies that a
+normal user token receives \texttt{403} on the admin route while an admin token
+receives the user list. Error responses are: \texttt{400} (email already
+registered / invalid input), \texttt{401} (missing, invalid, or expired token;
+wrong credentials), \texttt{403} (authenticated but insufficient role), and
+\texttt{404} (user not found).
+
+\finfig{../screenshots/level-2/auth-register.png}{0.85}{Successful registration returning a JWT.}
+\finfig{../screenshots/level-2/auth-login.png}{0.85}{Successful login returning a JWT.}
+\finfig{../screenshots/level-2/auth-401.png}{0.85}{Protected route rejecting a request with no token (401).}
+
+\subsection{Contribution to FinPilot}
+Authentication is the security backbone of FinPilot: it guarantees that every
+private financial record is tied to and accessible only by its owner, and it
+gates the admin tools behind role checks.
+
+\section{Task 3 --- Database Integration}
+
+\subsection{Objective}
+Integrate MongoDB using the Mongoose ODM, define models and relationships,
+enforce data validation before saving, and add indexes for query optimization,
+with all CRUD operations scoped to the authenticated user.
+
+\subsection{Technologies Used}
+MongoDB (Atlas) with the Mongoose ODM. The connection is defined in
+\texttt{src/config/db.js} and schemas live in \texttt{src/models/}.
+
+\subsection{Models}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{>{\bfseries}l X l}
+\toprule
+Model & Key Fields & Notes \\
+\midrule
+User    & name, email (unique, lowercase), password (min 6), role (enum user/admin) & Password hashed pre-save \\
+Income  & user (ref User), title, amount (min 0), date, category, paymentMethod, description & Indexed by \texttt{\{ user, date \}} \\
+Expense & user (ref User), title, amount (min 0), category, date, paymentMethod, description & Indexed by \texttt{\{ user, date \}} \\
+\bottomrule
+\end{tabularx}
+\caption{Core Mongoose models and their key fields.}
+\end{table}
+
+\subsection{Relationships}
+\texttt{Income} and \texttt{Expense} each hold a \texttt{user} field that
+references the \texttt{User} collection via a Mongoose \texttt{ObjectId} ref.
+Every controller query filters by \texttt{req.user.id}, so a user can only read or
+modify their own records.
+
+\begin{lstlisting}[language=Java,caption={User reference on the Income/Expense schema.}]
+user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+\end{lstlisting}
+
+\subsection{Data Validation}
+Validation runs automatically before documents are saved:
+\begin{itemize}[leftmargin=1.4em]
+  \item \textbf{Required fields:} \texttt{user}, \texttt{title}, \texttt{amount}.
+  \item \textbf{amount:} \texttt{Number} with \texttt{min: 0} --- negative values
+        are rejected.
+  \item \textbf{String fields:} \texttt{trim: true} removes accidental whitespace.
+  \item \textbf{email:} \texttt{unique} + \texttt{lowercase} to prevent duplicate
+        accounts.
+  \item \textbf{role:} restricted to \texttt{enum: ['user', 'admin']}.
+  \item \textbf{password:} \texttt{minlength: 6}.
+\end{itemize}
+
+\subsection{Indexing and Optimization}
+A compound index \texttt{\{ user: 1, date: -1 \}} on both Income and Expense makes
+the common "list my records, newest first" query fast. The \texttt{unique}
+constraint on \texttt{email} creates an index that enforces one account per email
+and speeds up login lookups.
+
+\subsection{CRUD Endpoints}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{l l X}
+\toprule
+\textbf{Method} & \textbf{Endpoint} & \textbf{Description} \\
+\midrule
+GET    & /api/income       & List current user income \\
+POST   & /api/income       & Create income entry \\
+PUT    & /api/income/:id   & Update income entry \\
+DELETE & /api/income/:id   & Delete income entry \\
+GET    & /api/expenses     & List current user expenses \\
+POST   & /api/expenses     & Create expense entry \\
+PUT    & /api/expenses/:id & Update expense entry \\
+DELETE & /api/expenses/:id & Delete expense entry \\
+\bottomrule
+\end{tabularx}
+\caption{User-scoped CRUD endpoints backed by MongoDB.}
+\end{table}
+
+\subsection{Connection}
+\begin{lstlisting}[language=Java,caption={MongoDB connection via Mongoose.}]
+mongoose.connect(process.env.MONGO_URI)
+\end{lstlisting}
+The URI is stored in \texttt{backend/.env} and is never committed.
+
+\subsection{Testing and Verification}
+The centralized error handler returns JSON with proper status codes:
+\texttt{400} for Mongoose validation errors (missing/invalid fields, negative
+amount), \texttt{403} when attempting to modify a record owned by another user,
+and \texttt{500} for unexpected server/database errors.
+
+\finfig{../screenshots/level-2/db-connected.png}{0.85}{MongoDB Atlas connected to the application.}
+\finfig{../screenshots/level-2/db-create.png}{0.85}{Creating a record that passes schema validation.}
+\finfig{../screenshots/level-2/db-validation-error.png}{0.85}{A negative amount rejected by validation.}
+
+\subsection{Contribution to FinPilot}
+Database integration turns FinPilot's in-memory operations into durable,
+per-user persisted data with validation and fast queries --- the storage
+foundation every financial module depends on.
+
+%==============================================================================
+\chapter{Level 3 --- Advanced}
+%==============================================================================
+
+\section{Task 1 --- Full-Stack Application}
+
+\subsection{Objective}
+Extend FinPilot into a complete full-stack (MERN) personal finance application
+covering all core modules with full role-based access control (user/admin).
+
+\subsection{Modules Implemented}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{>{\bfseries}l X}
+\toprule
+Module & Description \\
+\midrule
+Authentication    & Register, login, JWT, bcrypt password hashing, protected routes \\
+Dashboard         & Aggregated stats, charts (income vs expense, category breakdown, budget usage) \\
+Income \& Expense & Full CRUD, scoped per user \\
+Budgets           & Create/edit/delete, auto-calculated spent amount, exceed alerts \\
+Savings Goals     & Create goals, deposit money, auto-complete on target reached \\
+Investments       & Track stocks/crypto/gold/etc., profit/loss calculation \\
+Transactions      & Unified activity log, search/filter/sort, CSV \& PDF export \\
+Categories        & Custom category CRUD per user \\
+Analytics         & Charts for income growth, savings growth, category spending \\
+Profile           & Update personal info, change password, theme preference \\
+Admin Panel       & User management, suspend users, view platform-wide stats \\
+\bottomrule
+\end{tabularx}
+\caption{Full-stack modules implemented in Level 3.}
+\end{table}
+
+\subsection{Role-Based Access}
+Regular users can only access and modify their own data, enforced via
+\texttt{user} ownership checks on every query. Admin-only routes are protected by
+the \texttt{authorize('admin')} middleware, covering user management and
+platform statistics. (The underlying JWT/bcrypt mechanism is described in
+Chapter~3, Task~2.)
+
+\subsection{UI/UX Design}
+The application uses a dashboard-style layout with a collapsible, grouped sidebar
+navigation instead of a flat link list, to keep the interface manageable as the
+feature count grew.
+\begin{itemize}[leftmargin=1.4em]
+  \item \textbf{Grouped sections:} Overview, Money (Income/Expenses/Budgets),
+        Growth (Savings/Investments), Records (Transactions/Categories), Insights
+        (Analytics), and a pinned Account section (Profile/Admin/Logout).
+  \item Sidebar collapses to an icon-only rail with flyout popovers, expandable on
+        demand; the active route auto-expands its parent group and is highlighted.
+  \item Fully responsive: overlay drawer navigation on mobile.
+  \item Reusable Modal component for create/edit forms (Budgets, Investments,
+        Categories, Savings deposits) instead of always-visible inline forms.
+  \item Toast notification system for form feedback and real-time Socket.io
+        alerts.
+  \item Skeleton loading states and empty-state messaging on all list views.
+  \item Light/dark theme support via CSS custom properties, respected across every
+        component.
+  \item Consistent Card and Badge components for stats, budget progress, and
+        status indicators.
+\end{itemize}
+
+\subsection{Screenshots}
+\finfig{../screenshots/level-3/dashboard.png}{0.9}{Dashboard overview with charts and aggregated stats.}
+\finfig{../screenshots/level-3/sidebar-collapsed.png}{0.9}{Collapsed icon-only sidebar navigation.}
+\finfig{../screenshots/level-3/budgets.png}{0.9}{Budgets with progress bars and exceed alerts.}
+\finfig{../screenshots/level-3/savings.png}{0.9}{Savings goals with goal tracking and deposits.}
+\finfig{../screenshots/level-3/investments.png}{0.9}{Investments portfolio with profit/loss.}
+\finfig{../screenshots/level-3/transactions.png}{0.9}{Transactions with search, filter, and export.}
+\finfig{../screenshots/level-3/admin-panel.png}{0.9}{Admin panel with user management and platform stats.}
+\finfig{../screenshots/level-3/dark-theme.png}{0.9}{Light/dark mode support across the application.}
+
+\subsection{Deployment Readiness}
+The backend is configured for Render (env vars: \texttt{MONGO\_URI},
+\texttt{JWT\_SECRET}, \texttt{FRONTEND\_URL}, \texttt{PORT}); the frontend is
+configured for Vercel with SPA rewrite rules; and the database uses MongoDB Atlas
+(cloud-hosted, in use since Level 1).
+
+\subsection{Contribution to FinPilot}
+This task integrates every prior building block --- auth, UI framework, and
+database --- into the complete FinPilot product, adding the budgets, savings,
+investments, transactions, analytics, and admin modules that define the app.
+
+\section{Task 2 --- WebSockets}
+
+\subsection{Objective}
+Deliver private, real-time notifications to users using WebSockets so that
+finance events (such as budget alerts and savings-goal completion) reach the user
+instantly without a page refresh.
+
+\subsection{Why WebSockets Are Used}
+FinPilot generates events that should reach the user immediately --- for example,
+a budget being exceeded or a savings goal being completed. Polling the REST API
+for these would be wasteful and slow, so a persistent Socket.io channel is used to
+push notifications to the specific user the moment they occur.
+
+\subsection{Technologies Used}
+Socket.io on the backend (attached to the same HTTP server as the REST API) and
+the Socket.io client on the React frontend.
+
+\subsection{How the Client Communicates with the Backend}
+Socket.io is attached to the HTTP server at startup, with CORS restricted to the
+frontend origin. Each client, after authenticating, emits a \texttt{join} event
+with its user ID to join a private room named after that user ID. The backend then
+emits notification events only to that room, keeping every user's notifications
+private.
+
+\begin{lstlisting}[language=Java,caption={Backend: a per-user private room on connection (socket.js).}]
+io.on('connection', (socket) => {
+  // Client emits `join` with their userId; join a private room for that user.
+  socket.on('join', (userId) => {
+    if (userId) socket.join(String(userId));
+  });
+});
+
+// Safe emit helper: no-ops if io is not initialized (e.g. during tests).
+function emitToUser(userId, event, payload) {
+  if (!io) return;
+  io.to(String(userId)).emit(event, payload);
+}
+\end{lstlisting}
+
+\subsection{How Real-Time Notifications Work}
+When the backend needs to notify a user, it persists a notification and pushes it
+to that user's room in a single helper. The client listens for the
+\texttt{notification} event and updates the notification bell and toast alerts in
+real time.
+
+\begin{lstlisting}[language=Java,caption={Backend: persist and push a notification (notify.js).}]
+async function notify(userId, message, type) {
+  const notification = await Notification.create({ user: userId, message, type });
+  emitToUser(userId, 'notification', notification);
+  return notification;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Frontend: join the room and react to notification events (SocketContext).}]
+const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
+socket.emit('join', user.id);
+socket.on('notification', (payload) => {
+  setNotifications((prev) => [payload, ...prev]);
+  showToast(payload.message, /* type derived from payload.type */);
+});
+// ...
+return () => { socket.disconnect(); };
+\end{lstlisting}
+
+On the client, the toast severity is derived from the notification type
+(\texttt{budget-alert} $\rightarrow$ warning, \texttt{goal-completed}
+$\rightarrow$ success, otherwise info). The socket connects only when the user is
+authenticated and disconnects on logout.
+
+\subsection{Testing and Verification}
+The implementation was verified to confirm that:
+\begin{itemize}[leftmargin=1.4em]
+  \item Notifications are delivered instantly without a page refresh.
+  \item Notifications are private --- only the relevant user's room receives their
+        own events.
+  \item The socket disconnects cleanly on logout.
+\end{itemize}
+
+\finfig{../screenshots/level-3/live-notification.png}{0.85}{Live notification toast delivered in real time.}
+\finfig{../screenshots/level-3/notification-bell.png}{0.85}{Notification bell dropdown listing user notifications.}
+\finfig{../screenshots/level-3/socket-connection.png}{0.85}{Active Socket.io connection shown in browser devtools.}
+
+\subsection{Contribution to FinPilot}
+WebSockets make FinPilot feel live: budget alerts, savings-goal completion, and
+other events surface to the correct user immediately, turning the finance data
+into an interactive, responsive experience.
+
+%==============================================================================
+\chapter{API Reference}
+%==============================================================================
+The complete set of REST endpoints exposed by the FinPilot backend is summarized
+below. Endpoints marked \emph{Required} need a valid JWT; \emph{Admin} endpoints
+additionally require the admin role; \emph{Public} endpoints are accessible
+without authentication.
+
+\begin{longtable}{l L{4.9cm} L{5.2cm} l}
+\toprule
+\textbf{Method} & \textbf{Endpoint} & \textbf{Description} & \textbf{Auth} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Method} & \textbf{Endpoint} & \textbf{Description} & \textbf{Auth} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+POST & /api/auth/register & Create account, returns token and user & Public \\
+POST & /api/auth/login & Login, returns token and user & Public \\
+GET & /api/auth/me & Get current authenticated user & Required \\
+GET & /api/auth/users & List users (admin only) & Admin \\
+GET/POST & /api/income & List / create incomes (scoped to user) & Required \\
+PUT/DELETE & /api/income/:id & Update / delete an income owned by the user & Required \\
+GET/POST & /api/expenses & List / create expenses (scoped to user) & Required \\
+PUT/DELETE & /api/expenses/:id & Update / delete an expense owned by the user & Required \\
+GET/POST & /api/budgets & List / create budgets & Required \\
+PUT/DELETE & /api/budgets/:id & Update / delete budget & Required \\
+GET/POST & /api/savings & List / create savings goals & Required \\
+PUT/DELETE & /api/savings/:id & Update / delete savings goal & Required \\
+POST & /api/savings/:id/deposit & Deposit to a savings goal & Required \\
+GET/POST & /api/investments & List / create investments & Required \\
+PUT/DELETE & /api/investments/:id & Update / delete investment & Required \\
+GET/POST & /api/categories & List / create categories & Required \\
+PUT/DELETE & /api/categories/:id & Update / delete category & Required \\
+GET & /api/transactions & List transactions (filters supported) & Required \\
+GET & /api/transactions/export/csv & Export transactions as CSV & Required \\
+GET & /api/transactions/export/pdf & Export transactions as PDF & Required \\
+GET & /api/notifications & List notifications for user & Required \\
+DELETE & /api/notifications/:id & Delete a notification & Required \\
+PUT & /api/notifications/:id/read & Mark notification read & Required \\
+GET & /api/dashboard/stats & Dashboard stats (guest-safe payload if unauthenticated) & Public \\
+GET/PUT & /api/profile & Get / update profile & Required \\
+PUT & /api/profile/change-password & Change user password & Required \\
+GET/DELETE/PUT & /api/admin/* & Admin reports, list/delete users, suspend users & Admin \\
+\caption{FinPilot REST API reference.}
+\end{longtable}
+
+%==============================================================================
+\chapter{Security}
+%==============================================================================
+FinPilot implements the following security mechanisms, each drawn from the actual
+implementation:
+\begin{itemize}[leftmargin=1.4em]
+  \item \textbf{JWT authentication.} Stateless sessions using signed JSON Web
+        Tokens that carry the user \texttt{id} and \texttt{role} and expire in 7
+        days.
+  \item \textbf{bcrypt password hashing.} Passwords are hashed with
+        \texttt{bcryptjs} in a pre-save hook and never stored in plain text; a
+        \texttt{comparePassword()} helper validates logins.
+  \item \textbf{Protected backend routes.} The \texttt{protect} middleware
+        validates the Bearer token on every private route and populates
+        \texttt{req.user}.
+  \item \textbf{Role-based access control.} The \texttt{authorize(...roles)}
+        middleware guards admin-only endpoints, returning \texttt{403 Forbidden}
+        for insufficient roles.
+  \item \textbf{User-specific data access.} Every controller query filters by
+        \texttt{req.user.id}, so users can only read or modify their own records.
+  \item \textbf{CORS restriction.} Both the HTTP API and the Socket.io channel
+        restrict origins to the configured frontend URL.
+\end{itemize}
+
+%==============================================================================
+\chapter{Deployment}
+%==============================================================================
+FinPilot is deployed as a three-part cloud application:
+\begin{table}[H]
+\centering
+\begin{tabularx}{\linewidth}{>{\bfseries}l X}
+\toprule
+Component & Platform \\
+\midrule
+Frontend & Vercel (SPA rewrite rules configured) \\
+Backend  & Render (\texttt{render.yaml} blueprint; env vars \texttt{MONGO\_URI}, \texttt{JWT\_SECRET}, \texttt{FRONTEND\_URL}, \texttt{PORT}) \\
+Database & MongoDB Atlas (cloud-hosted, in use since Level 1) \\
+\bottomrule
+\end{tabularx}
+\caption{Deployment targets for each application layer.}
+\end{table}
+
+\noindent\textbf{Live URLs}
+\begin{itemize}[leftmargin=1.4em]
+  \item Frontend: \url{https://finpilot-oiek-q4zxkmfqt-sushil-bhattas-projects.vercel.app/}
+  \item Backend API: \url{https://finplot-rhir.onrender.com}
+\end{itemize}
+
+%==============================================================================
+\chapter{Final Project Summary}
+%==============================================================================
+
+\section{What Was Built}
+FinPilot is a complete full-stack personal finance and investment dashboard.
+Starting from a verified development environment and a simple Income/Expense REST
+API, the project grew into a React + TypeScript frontend, a JWT/bcrypt
+authentication system with role-based access control, a validated and indexed
+MongoDB data layer, and a full suite of finance modules --- dashboard, income,
+expenses, budgets, savings goals, investments, transactions (with CSV/PDF
+export), categories, analytics, profile, and an admin panel --- topped with
+real-time Socket.io notifications.
+
+\section{Technologies Learned and Applied}
+React 19, TypeScript, Vite, React Router, Axios, and Recharts on the frontend;
+Node.js, Express, JWT, bcryptjs, Socket.io, and PDFKit on the backend; and MongoDB
+with Mongoose for persistence --- deployed across Vercel, Render, and MongoDB
+Atlas.
+
+\section{Full-Stack Concepts Demonstrated}
+\begin{itemize}[leftmargin=1.4em]
+  \item RESTful API design with full CRUD and centralized error handling.
+  \item Component-based, type-safe frontend architecture with global state and
+        typed API clients.
+  \item Secure authentication, password hashing, and role-based authorization.
+  \item Relational-style data modeling in MongoDB with validation, references,
+        and indexing, scoped per user.
+  \item Real-time client--server communication over WebSockets with private
+        per-user rooms.
+  \item Cloud deployment of a three-tier application.
+\end{itemize}
+
+\section{Deployment Status}
+The application is deployed and accessible: the frontend on Vercel, the backend
+on Render, and the database on MongoDB Atlas.
+
+\section{Overall Outcome}
+All seven internship tasks across Levels 1--3 were completed, resulting in a
+cohesive, deployed full-stack application. FinPilot demonstrates end-to-end
+ownership of a modern web product --- from environment setup and API design to
+authentication, data modeling, a polished UI, real-time features, and cloud
+deployment.
+
+\end{document}
